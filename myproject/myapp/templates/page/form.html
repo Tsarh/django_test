@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Django</title>
+    <link rel="stylesheet" href="{% static "css/index.css" %}" />
+  </head>
+  <body>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="valider" />
+    </form>
+    <a href="{% url "myapp:index" %}">&laquo; revenir à la page precedent</a>
+    <script src="{% static "js/index.js" %}"></script>
+  </body>
+</html>

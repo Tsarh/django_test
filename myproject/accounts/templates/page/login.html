@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Django</title>
+  </head>
+  <body>
+    <h1> Connexion </h1>
+    {% for message in messages %}
+      <p> {{message}} </p>
+    {% endfor %}
+    <form method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input type="submit" value="Se connecter"/>
+    </form>
+    <script src="{% static "js/index.js" %}"></script>
+  </body>
+</html>

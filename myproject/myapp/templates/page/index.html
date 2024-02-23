@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Django</title>
+    <link rel="stylesheet" href="{% static "css/index.css" %}" />
+    <style>
+      table{
+        padding: 5px;
+      }
+      th,td{
+        border: 1px solid #ff2dc0;
+        color: pink
+      }
+      a{
+        color: chartreuse;
+      }
+    </style>
+  </head>
+  <body>
+    {% if perms.myapp.delete_book %}
+      <p>la permission est presente</p>
+    {% endif %}
+    {% if user.is_authenticated %}
+      <p>Connecté sous {{ user.username }} | <a href="{% url "accounts:logout" %}"> Deconnection</a> </p>
+    {% else %}
+      <p><a href="{% url "accounts:login" %}"> Connection</a> | <a href="{% url "accounts:register" %}"> Inscription</a></p>
+    {% endif %}
+    <h1>Tous les ouvrages</h1>
+    <a href="{% url "myapp:add" %}"> ++ajouter un livre </a> 
+     
+    <table>
+      <tr>
+        <th>Titre</th>
+        <th>Auteur</th>
+        <th>Quantité</th>
+        <th>Modifier</th>
+        <th>Supprimer</th>
+        {% for book in books %}
+        <tr>
+        <td><a href="{% url "myapp:show" book.id %}">{{book.title}}</a></td>
+        <td>{{book.author.name}}</td>
+        <td>{{book.quantity}}</td>
+        <td><a href="{% url "myapp:edit" book.id %}"> modifier un livre </a></td>
+        <td><a href="{% url "myapp:supprimer" book.id %}"> supprimer un livre </a></td>
+        </tr>
+      {% endfor %}
+    </table>
+    {% comment %} <form method="post">
+      {% csrf_token %}
+      {{form.as_p}}
+      <input type="submit" value="valider"/>
+    </form> {% endcomment %}
+    <script src="{% static "js/index.js" %}"></script>
+  </body>
+</html>
